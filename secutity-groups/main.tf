@@ -36,13 +36,13 @@ resource "aws_security_group" "alb_security_group" {
 resource "aws_security_group" "bastion_security_group" {
   name        = "${var.project_name}-${var.environment}-bastion-sg"
   description = "enable ssh access on port 22"
-  vpc_id      = var.vpc_id
+  vpc_id      = var.vpc_id   
 
   ingress {
     description = "ssh access"
     from_port   = 22
     to_port     = 22
-    protocol    = "tcp" 
+    protocol    = "tcp"
     cidr_blocks = [var.ssh_ip]
   }
 
@@ -66,7 +66,7 @@ resource "aws_security_group" "app_server_security_group" {
 
   ingress {
     description     = "http access"
-    from_port       = 80
+    from_port       = 80 
     to_port         = 80
     protocol        = "tcp"
     security_groups = [aws_security_group.alb_security_group.id]
