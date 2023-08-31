@@ -13,7 +13,8 @@ resource "aws_security_group" "alb_security_group" {
   }
 
   ingress {
-    description = "https access"
+    /* description = "https access" */
+    description     = "http access"
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
@@ -73,7 +74,8 @@ resource "aws_security_group" "app_server_security_group" {
   }
 
   ingress {
-    description     = "https access"
+    /* description     = "https access" */
+    description     = "http access"
     from_port       = 443
     to_port         = 443
     protocol        = "tcp"
