@@ -1,4 +1,4 @@
-/* # create application load balancer
+# create application load balancer
 resource "aws_lb" "application_load_balancer" {
   name                       = "${var.project_name}-${var.environment}-alb"
   internal                   = false
@@ -55,10 +55,10 @@ resource "aws_lb_listener" "alb_https_listener" {
   port              = 443
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
-  # certificate_arn   = var.certificate_arn
+  /* certificate_arn   = var.certificate_arn */
 
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.alb_target_group.arn
   }
-} */
+}
