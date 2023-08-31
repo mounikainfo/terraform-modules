@@ -44,7 +44,7 @@ resource "aws_lb_listener" "alb_http_listener" {
     redirect {
       port        = 443
       /* protocol    = "HTTPS" */
-      protocol    = "HTTP"
+      protocol    = "HTTP1"
       status_code = "HTTP_301"
     }
   }
@@ -55,7 +55,7 @@ resource "aws_lb_listener" "alb_http1_listener" {
   load_balancer_arn = aws_lb.application_load_balancer.arn
   port              = 443
   /* protocol          = "HTTPS" */
-  protocol          = "HTTP"
+  protocol          = "HTTP1"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   /* certificate_arn   = var.certificate_arn */
 
