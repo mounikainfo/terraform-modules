@@ -57,7 +57,7 @@ resource "aws_lb_listener" "alb_http_listener" {
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = var.certificate_arn */
 
-  default_action {
+  /* default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.alb_target_group.arn
   }
