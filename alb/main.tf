@@ -57,7 +57,7 @@ resource "aws_lb_listener" "alb_http_listener" {
   /* protocol          = "HTTPS" */
   protocol          = "HTTP"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = var.certificate_arn
+  /* certificate_arn   = var.certificate_arn */
 
   default_action {
     type             = "forward"
