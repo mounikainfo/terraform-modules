@@ -51,7 +51,7 @@ resource "aws_lb_listener" "alb_http_listener" {
 }
 
 # create a listener on port 443 with forward action
-resource "aws_lb_listener" "alb_http_listener" {
+resource "aws_lb_listener" "alb_http1_listener" {
   load_balancer_arn = aws_lb.application_load_balancer.arn
   port              = 443
   /* protocol          = "HTTPS" */
