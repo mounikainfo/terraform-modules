@@ -12,14 +12,13 @@ resource "aws_security_group" "alb_security_group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  /* ingress {
-    description = "https access" 
-    # description     = "http access"
+  ingress {
+    description = "https access"
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-  } */
+  } 
 
   egress {
     from_port   = 0
@@ -73,15 +72,14 @@ resource "aws_security_group" "app_server_security_group" {
     security_groups = [aws_security_group.alb_security_group.id]
   }
 
-  /* ingress {
-    # description     = "https access" 
-    description     = "http access"
+  ingress {
+    description     = "https access" 
     from_port       = 443
     to_port         = 443
     protocol        = "tcp"
     security_groups = [aws_security_group.alb_security_group.id]
   }
- */
+
   egress {
     from_port   = 0
     to_port     = 0
