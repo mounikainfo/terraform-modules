@@ -1,4 +1,4 @@
-# create ecs cluster
+/* # create ecs cluster
 resource "aws_ecs_cluster" "ecs_cluster" {
   name = "${var.project_name}-${var.environment}-cluster"
 
@@ -92,4 +92,4 @@ resource "aws_ecs_service" "ecs_service" {
     container_name   = "${var.project_name}-${var.environment}-container"
     container_port   = 80
   }
-}
+} */
