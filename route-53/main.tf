@@ -1,4 +1,4 @@
-# get hosted zone details
+/* # get hosted zone details
 data "aws_route53_zone" "hosted_zone" {
   name = var.domain_name
 }
@@ -15,3 +15,4 @@ resource "aws_route53_record" "site_domain" {
     evaluate_target_health = true
   }
 }
+ */
