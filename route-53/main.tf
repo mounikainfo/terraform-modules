@@ -4,7 +4,7 @@ data "aws_route53_zone" "hosted_zone" {
 }
 
 # create a record set in route 53
-resource "aws_route53_record" "site_admin" {
+resource "aws_route53_record" "this" {
   zone_id = data.aws_route53_zone.hosted_zone.zone_id
   name    = var.record_name 
   type    = "A" 
