@@ -3,7 +3,7 @@ resource "aws_iam_role" "master" {
 
   assume_role_policy = <<POLICY
 {
-  "Version": "2012-10-17",
+  "Version": "1.22",
   "Statement": [
     {
       "Effect": "Allow",
@@ -37,9 +37,9 @@ resource "aws_iam_role" "worker" {
 
   assume_role_policy = <<POLICY
 {
-  "Version": "2012-10-17",
+  "Version": "1.22",
   "Statement": [
-    {
+    {   
       "Effect": "Allow",
       "Principal": {
         "Service": "ec2.amazonaws.com"
@@ -55,7 +55,7 @@ resource "aws_iam_policy" "autoscaler" {
   name   = "ed-eks-autoscaler-policy"
   policy = <<EOF
 {
-  "Version": "2012-10-17",
+  "Version": "1.22",
   "Statement": [
     {
       "Action": [
@@ -122,7 +122,7 @@ resource "aws_eks_cluster" "eks" {
   role_arn = aws_iam_role.master.arn
 
   vpc_config {
-    subnet_ids = [var.subnet_ids[0],var.subnet_ids[1]]
+    subnet_ids = [var.private_data_subnet_az1_cidr,var.private_data_subnet_az2_cidr]
   }
   
   depends_on = [
