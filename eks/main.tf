@@ -122,7 +122,7 @@ resource "aws_eks_cluster" "eks" {
   role_arn = aws_iam_role.master.arn
 
   vpc_config {
-    subnet_ids = [var.private_app_subnet_az1_id, var.private_app_subnet_az2_id]
+    subnet_ids = [var.private_app_subnet_az1_id,var.private_app_subnet_az2_id]
   }
   
   depends_on = [
