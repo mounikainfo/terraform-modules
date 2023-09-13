@@ -32,7 +32,8 @@ resource "aws_eks_cluster" "demo" {
       aws_subnet.public_subnet_az2,
       aws_subnet.private_app_subnet_az1,
       aws_subnet.private_app_subnet_az2,
-      aws_subnet.public-us-east-1b.id
+      aws_subnet.private_data_subnet_az1,
+      aws_subnet.private_data_subnet_az2,
     ]
   }
 
