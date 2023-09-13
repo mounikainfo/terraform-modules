@@ -1,12 +1,18 @@
-variable "sg_ids" {
+/* variable "sg_ids" {
 type = string
-}
+} */
 
-variable "subnet_ids" {
+/* variable "subnet_ids" {
   type = list
 }
+ */
 
-variable "vpc_id" {
+/* variable "vpc_id" {
    //default = "vpc-5f680722"
-   type = string
-}
+  type = string
+} */
+
+
+variable "private_app_subnet_az1_id" {}
+variable "private_app_subnet_az2_id" {}
+variable "app_server_security_group_id" {}

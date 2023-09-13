@@ -122,7 +122,7 @@ resource "aws_eks_cluster" "eks" {
   role_arn = aws_iam_role.master.arn
 
   vpc_config {
-    subnet_ids = [var.private_data_subnet_az1_cidr,var.private_data_subnet_az2_cidr]
+    subnet_ids = [var.private_app_subnet_az1_id, var.private_app_subnet_az2_id]
   }
   
   depends_on = [
@@ -141,13 +141,13 @@ resource "aws_eks_node_group" "backend" {
   cluster_name    = aws_eks_cluster.eks.name
   node_group_name = "dev"
   node_role_arn   = aws_iam_role.worker.arn
-  subnet_ids = [var.subnet_ids[0],var.subnet_ids[1]]
+  subnet_ids = [var.private_app_subnet_az1_id, var.private_app_subnet_az2_id]
   capacity_type = "ON_DEMAND"
   disk_size = "20"
   instance_types = ["t2.small"]
   remote_access {
-    ec2_ssh_key = "rtp-03"
-    source_security_group_ids = [var.sg_ids]
+    ec2_ssh_key = "myaws"
+    source_security_group_ids = [var.app_server_security_group_id]
   } 
   
   labels =  tomap({env = "dev"})
