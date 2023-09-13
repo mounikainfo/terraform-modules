@@ -3,7 +3,7 @@ resource "aws_iam_role" "master" {
 
   assume_role_policy = <<POLICY
 {
-  "Version": "1.22",
+  "Version": "2012-10-17",
   "Statement": [
     {
       "Effect": "Allow",
@@ -37,9 +37,9 @@ resource "aws_iam_role" "worker" {
 
   assume_role_policy = <<POLICY
 {
-  "Version": "1.22",
+  "Version": "2012-10-17",
   "Statement": [
-    {   
+    {
       "Effect": "Allow",
       "Principal": {
         "Service": "ec2.amazonaws.com"
@@ -55,7 +55,7 @@ resource "aws_iam_policy" "autoscaler" {
   name   = "ed-eks-autoscaler-policy"
   policy = <<EOF
 {
-  "Version": "1.22",
+  "Version": "2012-10-17",
   "Statement": [
     {
       "Action": [
@@ -122,7 +122,7 @@ resource "aws_eks_cluster" "eks" {
   role_arn = aws_iam_role.master.arn
 
   vpc_config {
-    subnets = [var.private_app_subnet_az1_id,var.private_app_subnet_az2_id]
+    subnet_ids = [var.subnet_ids[2],var.subnet_ids[3]]
   }
   
   depends_on = [
@@ -141,13 +141,13 @@ resource "aws_eks_node_group" "backend" {
   cluster_name    = aws_eks_cluster.eks.name
   node_group_name = "dev"
   node_role_arn   = aws_iam_role.worker.arn
-  subnets = [var.private_app_subnet_az1_id, var.private_app_subnet_az2_id]
+  subnet_ids = [var.subnet_ids[2],var.subnet_ids[3]]
   capacity_type = "ON_DEMAND"
   disk_size = "20"
   instance_types = ["t2.small"]
   remote_access {
-    ec2_ssh_key = "myaws"
-    source_security_group_ids = [var.app_server_security_group_id]
+    ec2_ssh_key = "rtp-03"
+    source_security_group_ids = [var.sg_ids]
   } 
   
   labels =  tomap({env = "dev"})
