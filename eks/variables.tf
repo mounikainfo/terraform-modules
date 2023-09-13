@@ -12,10 +12,10 @@ variable "private_app_subnet_az2_cidr" {
   
 }
 
-/* variable "vpc_id" {
+variable "vpc_id" {
    //default = "vpc-5f680722"
   type = string
-} */
+}
 
 
 /* variable "private_app_subnet_az1_id" {}
