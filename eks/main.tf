@@ -3,7 +3,7 @@ resource "aws_iam_role" "master" {
 
   assume_role_policy = <<POLICY
 {
-  "Version": "2012-10-17",
+  "Version": "1.22",
   "Statement": [
     {
       "Effect": "Allow",
@@ -37,7 +37,7 @@ resource "aws_iam_role" "worker" {
 
   assume_role_policy = <<POLICY
 {
-  "Version": "2012-10-17",
+  "Version": "1.22",
   "Statement": [
     {
       "Effect": "Allow",
@@ -55,7 +55,7 @@ resource "aws_iam_policy" "autoscaler" {
   name   = "ed-eks-autoscaler-policy"
   policy = <<EOF
 {
-  "Version": "2012-10-17",
+  "Version": "1.22",
   "Statement": [
     {
       "Action": [
@@ -146,7 +146,7 @@ resource "aws_eks_node_group" "backend" {
   disk_size = "20"
   instance_types = ["t2.small"]
   remote_access {
-    ec2_ssh_key = "rtp-03"
+    ec2_ssh_key = "myaws"
     source_security_group_ids = [var.sg_ids]
   } 
   
