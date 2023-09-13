@@ -122,7 +122,7 @@ resource "aws_eks_cluster" "eks" {
   role_arn = aws_iam_role.master.arn
 
   vpc_config {
-    subnet_ids = [var.subnet_ids[2],var.subnet_ids[3]]
+    subnet_ids = [var.private_app_subnet_az1_cidr,var.private_app_subnet_az2_cidr]
   }
   
   depends_on = [
@@ -132,6 +132,8 @@ resource "aws_eks_cluster" "eks" {
     aws_iam_role_policy_attachment.AmazonEKSVPCResourceController,
     #aws_subnet.pub_sub1,
     #aws_subnet.pub_sub2,
+    aws_subnet.private_app_subnet_az1,
+    aws_subnet.private_app_subnet_az2,
   ]
 
 }
@@ -141,7 +143,7 @@ resource "aws_eks_node_group" "backend" {
   cluster_name    = aws_eks_cluster.eks.name
   node_group_name = "dev"
   node_role_arn   = aws_iam_role.worker.arn
-  subnet_ids = [var.subnet_ids[2],var.subnet_ids[3]]
+  subnet_ids = [var.private_app_subnet_az1_cidr,var.private_app_subnet_az2_cidr]
   capacity_type = "ON_DEMAND"
   disk_size = "20"
   instance_types = ["t2.small"]
@@ -168,6 +170,8 @@ resource "aws_eks_node_group" "backend" {
     aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly,
     #aws_subnet.pub_sub1,
     #aws_subnet.pub_sub2,
+    aws_subnet.private_app_subnet_az1,
+    aws_subnet.private_app_subnet_az2,
   ]
 }
 
