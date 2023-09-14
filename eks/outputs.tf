@@ -1,7 +1,7 @@
 output "endpoint" {
-  value = aws_eks_cluster.demo.endpoint
+  value = aws_eks_cluster.sta_demo.endpoint
 }
 
-output "name" {
-  value = aws_eks_cluster.demo.name
+output "c_name" {
+  value = aws_eks_cluster.sta_demo.name
 }
