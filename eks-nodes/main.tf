@@ -1,4 +1,4 @@
-/* resource "aws_iam_role" "nodes" {
+ resource "aws_iam_role" "nodes" {
   name = "eks-node-group-nodes"
 
   assume_role_policy = jsonencode({
@@ -29,7 +29,7 @@ resource "aws_iam_role_policy_attachment" "nodes-AmazonEC2ContainerRegistryReadO
 }
 
 resource "aws_eks_node_group" "private-nodes" {
-  cluster_name    = 
+  cluster_name    = var.my-eks
   node_group_name = "private-nodes"
   node_role_arn   = aws_iam_role.nodes.arn
 
@@ -87,4 +87,3 @@ resource "aws_eks_node_group" "private-nodes" {
 #     }
 #   }
 # }
- */
