@@ -3,5 +3,5 @@ output "endpoint" {
 }
 
 output "cluster_name" {
-  value = aws_eks_cluster.eks_cluster.name
+  value = aws_eks_cluster.demo.name
 }
