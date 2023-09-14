@@ -27,7 +27,7 @@ resource "aws_eks_cluster" "demo" {
   role_arn = aws_iam_role.demo.arn
 
   vpc_config {
-    subnet_ids  = [var.public_subnet_az2_id, var.public_subnet_az1_id, var.private_app_subnet_az1_id, var.private_app_subnet_az2_id]
+    subnet_ids  = [var.private_app_subnet_az1_id, var.private_app_subnet_az2_id]
   }
 
   depends_on = [aws_iam_role_policy_attachment.demo-AmazonEKSClusterPolicy]
