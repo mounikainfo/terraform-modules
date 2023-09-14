@@ -1,4 +1,4 @@
-resource "aws_iam_role" "nodes" {
+/* resource "aws_iam_role" "nodes" {
   name = "eks-node-group-nodes"
 
   assume_role_policy = jsonencode({
@@ -87,3 +87,4 @@ resource "aws_eks_node_group" "private-nodes" {
 #     }
 #   }
 # }
+ */
