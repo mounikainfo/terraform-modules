@@ -26,6 +26,7 @@ resource "aws_eks_cluster" "demo" {
   name = "stademo"
   role_arn = aws_iam_role.demo.arn
 
+  # security_groups  = [var.app_server_security_group_id]
   vpc_config {
     subnet_ids  = [var.private_app_subnet_az1_id, var.private_app_subnet_az2_id]
   }
