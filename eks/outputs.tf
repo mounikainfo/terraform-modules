@@ -7,5 +7,5 @@ output "cluster_name" {
 }
 
 output  "identity"  { 
-  value = aws_eks_cluster.stademo.identity[0].oidc[0].issuer
+  value = aws_eks_cluster.demo.identity[0].oidc[0].issuer
  }
