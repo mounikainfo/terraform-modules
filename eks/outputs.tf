@@ -5,3 +5,7 @@ output "endpoint" {
 output "cluster_name" {
   value = aws_eks_cluster.demo.name
 }
+
+output  "identity"  { 
+  value = aws_eks_cluster.stademo.identity[0].oidc[0].issuer
+ }
