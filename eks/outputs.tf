@@ -10,6 +10,6 @@ output  "identity"  {
   value = aws_eks_cluster.demo.identity[0].oidc[0].issuer
 }
 
-output "aws_iam_openid_connect_provider" {
+/* output "aws_iam_openid_connect_provider" {
   value = aws_iam_openid_connect_provider.oidc_provider.arn
-}
+} */
