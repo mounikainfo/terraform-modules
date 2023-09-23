@@ -30,18 +30,18 @@ resource "aws_iam_role_policy_attachment" "eks_AmazonEKSVPCResourceController" {
 resource "aws_eks_cluster" "eks_cluster" {
   name = "eks-cluster"
   role_arn = aws_iam_role.eks_master_role.arn
-  version  = var.cluster_version
+  version  = "1.27"
 
   # security_groups  = [var.app_server_security_group_id]
   vpc_config {
     subnet_ids  = [var.private_app_subnet_az1_id, var.private_app_subnet_az2_id]
-    endpoint_private_access = var.cluster_endpoint_private_access
-    endpoint_public_access  = var.cluster_endpoint_public_access
-    public_access_cidrs     = var.cluster_endpoint_public_access_cidrs
+    endpoint_private_access = false
+    endpoint_public_access  = true
+    public_access_cidrs     = ["0.0.0.0/0"]
   }
 
 kubernetes_network_config {
-    service_ipv4_cidr = var.cluster_service_ipv4_cidr
+    service_ipv4_cidr = "172.20.0.0/16"
   }
 
 # Enable EKS Cluster Control Plane Logging
