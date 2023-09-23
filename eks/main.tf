@@ -34,27 +34,3 @@ resource "aws_eks_cluster" "demo" {
 
   depends_on = [aws_iam_role_policy_attachment.demo-AmazonEKSClusterPolicy]
 }
-
-/* locals {
-  k8s_cluster_name = "stademo"
-}
-
-data "aws_aws_eks_cluster" "target" {
-  name = local.k8s_cluster_name
-}
-
-data "aws_eks_cluster_auth" "aws_iam_authenticator" {
-  name = data.aws_eks_cluster.target.name
-}
- */
-#  resource "aws_iam_openid_connect_provider" "oidc_provider" {
-#   client_id_list  = ["sts.${data.aws_partition.current.dns_suffix}"]
-#   thumbprint_list = []
-#   url             = aws_eks_cluster.demo.identity[0].oidc[0].issuer
-#   tags = merge(
-#     {
-#       Name = "${var.cluster_name}-eks-irsa"
-#     },
-#     local.common_tags
-#   )
-# }
