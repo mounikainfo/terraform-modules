@@ -1,5 +1,5 @@
-resource "aws_iam_role" "nodes" {
-  name = "eks-node-group-nodes"
+resource "aws_iam_role" "eks_nodegroup_role" {
+  name = "eks-nodegroup-role"
 
   assume_role_policy = jsonencode({
     Statement = [{
@@ -13,25 +13,26 @@ resource "aws_iam_role" "nodes" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "nodes-AmazonEKSWorkerNodePolicy" {
+resource "aws_iam_role_policy_attachment" "eks_AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.nodes.name
+  role       = aws_iam_role.eks_nodegroup_role.name
 }
 
-resource "aws_iam_role_policy_attachment" "nodes-AmazonEKS_CNI_Policy" {
+resource "aws_iam_role_policy_attachment" "eks_AmazonEKS_CNI_Policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = aws_iam_role.nodes.name
+  role       = aws_iam_role.eks_nodegroup_role.name
 }
 
-resource "aws_iam_role_policy_attachment" "nodes-AmazonEC2ContainerRegistryReadOnly" {
+resource "aws_iam_role_policy_attachment" "eks_AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.nodes.name
+  role       = aws_iam_role.eks_nodegroup_role.name
 }
 
-resource "aws_eks_node_group" "private-nodes" {
-  cluster_name    = var.cluster_name
+resource "aws_eks_node_group" "eks_ng_public" {
+  cluster_name    = aws_eks_cluster.eks_cluster.name
   node_group_name = "private-nodes"
-  node_role_arn   = aws_iam_role.nodes.arn
+  node_role_arn   = aws_iam_role.eks_nodegroup_role.arn
+  version         = var.cluster_version
 
   subnet_ids = [
     var.private_app_subnet_az1_id,
@@ -39,7 +40,9 @@ resource "aws_eks_node_group" "private-nodes" {
   ]
 
   capacity_type  = "ON_DEMAND"
-  instance_types = ["t2.small"]
+  ami_type = "AL2_x86_64"
+  instance_types = ["t3.medium"]
+  disk_size = 20
 
   scaling_config {
     desired_size = 2
@@ -51,10 +54,10 @@ resource "aws_eks_node_group" "private-nodes" {
     max_unavailable = 1
   }
 
-  labels = {
+  /* labels = {
     role = "general"
   }
-
+ */
   # taint {
   #   key    = "team"
   #   value  = "devops"
@@ -71,6 +74,9 @@ resource "aws_eks_node_group" "private-nodes" {
     aws_iam_role_policy_attachment.nodes-AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.nodes-AmazonEC2ContainerRegistryReadOnly,
   ]
+  tags = {
+    Name = "Public-Node-Group"
+  }
 }
 
 # resource "aws_launch_template" "eks-with-disks" {
